@@ -65,8 +65,7 @@ const FALLBACK_CONFIG: LLMConfig = {
  * - Never mutates user config
  * - Missing or invalid values fall back safely
  */
-export function loadConfig(): LLMConfig {
-  const projectRoot = process.cwd();
+export function loadConfig(projectRoot: string = process.cwd()): LLMConfig {
   const configPath = path.join(projectRoot, CONFIG_FILENAME);
 
   if (!fs.existsSync(configPath)) {

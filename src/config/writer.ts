@@ -83,8 +83,9 @@ const DEFAULT_CONFIG: LLMConfig = {
  * - NEVER throws
  * - NEVER blocks dev or build
  */
-export function ensureConfigFile(): void {
-  const projectRoot = process.cwd();
+export function ensureConfigFile(
+  projectRoot: string = process.cwd()
+): void {
   const configPath = path.join(projectRoot, CONFIG_FILENAME);
 
   if (fs.existsSync(configPath)) {

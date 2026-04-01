@@ -2,6 +2,8 @@
 
 Deterministic, build-time content extraction for Astro sites, designed for Large Language Model (LLM) usage.
 
+Supports Astro 4, 5, and 6.
+
 `astro-llm` generates a single, clean, **static context file** from your built HTML — suitable for:
 - Retrieval-Augmented Generation (RAG)
 - Chat grounding
@@ -124,10 +126,7 @@ Paragraph content here
 ```json
 {
   "documents": [
-    {
-      "path": "/index.html",
-      "content": "..."
-    }
+    "---\nPATH: /index.html\n---\nPage title Section heading Paragraph content here"
   ]
 }
 ```

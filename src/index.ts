@@ -1,9 +1,12 @@
+import { fileURLToPath } from "node:url";
 import type { AstroIntegration } from "astro";
 import { ensureConfigFile } from "./config/writer.js";
 import { loadConfig } from "./config/reader.js";
 import { generateLLMContext } from "./build/generate.js";
 
 export default function astroLLM(): AstroIntegration {
+  let projectRoot = process.cwd();
+
   return {
     name: "astro-llm",
 
@@ -12,8 +15,9 @@ export default function astroLLM(): AstroIntegration {
        * Runs once Astro config is loaded.
        * Ideal place to ensure config exists.
        */
-      "astro:config:setup"() {
-        ensureConfigFile();
+      "astro:config:setup"({ config }) {
+        projectRoot = fileURLToPath(config.root);
+        ensureConfigFile(projectRoot);
       },
 
       /**
@@ -21,11 +25,11 @@ export default function astroLLM(): AstroIntegration {
        * Generates final LLM output using config.
        */
       "astro:build:done"({ dir }) {
-        const config = loadConfig();
+        const config = loadConfig(projectRoot);
         if (!config.enabled) return;
 
         generateLLMContext({
-          outDir: new URL(dir).pathname,
+          outDir: fileURLToPath(dir),
           config
         });
       }
