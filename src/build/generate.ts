@@ -96,7 +96,6 @@ function extractText(html: string, config: LLMConfig): string {
   for (const selector of config.exclude.selectors) {
     const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "");
     const regex = new RegExp(
-    const regex = new RegExp(
       `<[^>]*class=["'][^"']*${escaped}[^"']*["'][^>]*>[\\s\\S]*?<\\/[^>]+>`,
       "gi"
     );
