@@ -94,7 +94,8 @@ function extractText(html: string, config: LLMConfig): string {
      Selector-based exclusion
   --------------------------------------------- */
   for (const selector of config.exclude.selectors) {
-    const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "");
+    const regex = new RegExp(
     const regex = new RegExp(
       `<[^>]*class=["'][^"']*${escaped}[^"']*["'][^>]*>[\\s\\S]*?<\\/[^>]+>`,
       "gi"
